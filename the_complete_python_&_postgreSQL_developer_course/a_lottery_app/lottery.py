@@ -9,4 +9,13 @@ def get_player_numbers():
     return integer_set
 
 
+def create_lottery_numbers():
+    values = set()
+    while len(values) < 6:
+        values.add(random.randint(1, 20))
+
+    return values
+
+
 print(get_player_numbers())
+print(create_lottery_numbers())
