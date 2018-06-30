@@ -16,4 +16,6 @@ class Movie:
 
     @classmethod
     def from_json(cls, json_data):
-        return Movie(json_data['name'], json_data['genre'], json_data['watched'])
+        # return Movie(json_data['name'], json_data['genre'], json_data['watched'])
+        # return cls(genre=json_data['genre'], watched=json_data['watched'], name=json_data['name'])
+        return cls(**json_data)  # 自動塞值，就現 js
