@@ -20,6 +20,11 @@ class User:
 
         return movies_watched
 
+    def set_watched(self, name):
+        for movie in self.movies:
+            if movie.name == name:
+                movie.watched = True
+
     # [ csv format ]
     # def save_to_file(self):
     #     with open('{}.txt'.format(self.name), 'w') as f:
