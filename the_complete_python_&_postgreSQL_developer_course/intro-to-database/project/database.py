@@ -1,20 +1,23 @@
 from psycopg2 import pool
 
+connection_pool = pool.SimpleConnectionPool(1,
+                                            1,
+                                            database='learning',
+                                            user='postgres',
+                                            password='root1224',
+                                            host='localhost')
 
-class ConnectionPool:
+
+class ConnectionFromPool:
     def __init__(self):
-        self.connection_pool = pool.SimpleConnectionPool(1,
-                                                         10,
-                                                         database='learning',
-                                                         user='postgres',
-                                                         password='root1224',
-                                                         host='localhost')
+        self.connection = None
 
-    # for with statement
+    # for with clause
     def __enter__(self):
-        return self.connection_pool.getconn()  # connection has attribute 'cursor'
+        self.connection = connection_pool.getconn()
+        return self.connection  # connection has attribute 'cursor'
 
-    # for with statement
+    # for with clause
     def __exit__(self, exc_type, exc_val, exc_tb):
-        # We really should be returning the connections, but how?
-        pass
+        self.connection.commit()
+        connection_pool.putconn(self.connection)
