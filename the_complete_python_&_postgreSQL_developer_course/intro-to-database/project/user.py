@@ -1,4 +1,4 @@
-import psycopg2
+from database import connect
 
 
 class User:
@@ -23,8 +23,7 @@ class User:
         # connection.close()
 
         # auto commit
-        with psycopg2.connect(user='postgres', password='root1224', database='learning',
-                              host='localhost') as connection:
+        with connect() as connection:
             with connection.cursor() as cursor:
                 cursor.execute('INSERT INTO users (email, first_name, last_name) VALUES (%s, %s, %s)',
                                (self.email,
@@ -33,8 +32,7 @@ class User:
 
     @classmethod
     def load_from_db_by_email(cls, email):
-        with psycopg2.connect(user='postgres', password='root1224', database='learning',
-                              host='localhost') as connection:
+        with connect() as connection:
             with connection.cursor() as cursor:
                 cursor.execute('SELECT * FROM users WHERE email=%s', (email,))  # (123, '456') == [123, '456']
                 user_data = cursor.fetchone()
