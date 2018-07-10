@@ -7,7 +7,7 @@ Database.initialise(database='learning',
                     host='localhost')
 
 # CALL User class __init__
-my_user = User('jean.lin@gmail.com', 'Jean', 'Lin', None)
+my_user = User('hh.lin@gmail.com', 'hh', 'Lin', None)
 
 my_user.save_to_db()
 
