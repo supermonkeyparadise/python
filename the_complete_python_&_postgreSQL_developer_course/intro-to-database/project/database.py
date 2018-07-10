@@ -2,7 +2,7 @@ from psycopg2 import pool
 
 
 class Database:
-    __connection_pool = None  # private class member
+    __connection_pool = None  # [private] class(static) member
 
     # @staticmethod
     # def initialise():
@@ -14,7 +14,7 @@ class Database:
     #                                                          host='localhost')
 
     @classmethod
-    def initialise(cls, **kwargs):  # 任意數量的參數
+    def initialise(cls, **kwargs):  # 表示帶有名稱的任意數量的參數，自動塞值
         # cls.__connection_pool = pool.SimpleConnectionPool(1,
         #                                                   10,
         #                                                   database='learning',
