@@ -1,7 +1,10 @@
 from database import Database
 from user import User
 
-Database.initialise()
+Database.initialise(database='learning',
+                    user='postgres',
+                    password='root1224',
+                    host='localhost')
 
 # CALL User class __init__
 my_user = User('jean.lin@gmail.com', 'Jean', 'Lin', None)

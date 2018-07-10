@@ -2,7 +2,7 @@ from psycopg2 import pool
 
 
 class Database:
-    connection_pool = None  # class member
+    __connection_pool = None  # private class member
 
     # @staticmethod
     # def initialise():
@@ -14,25 +14,29 @@ class Database:
     #                                                          host='localhost')
 
     @classmethod
-    def initialise(cls):
-        cls.connection_pool = pool.SimpleConnectionPool(1,
-                                                        10,
-                                                        database='learning',
-                                                        user='postgres',
-                                                        password='root1224',
-                                                        host='localhost')
+    def initialise(cls, **kwargs):  # 任意數量的參數
+        # cls.__connection_pool = pool.SimpleConnectionPool(1,
+        #                                                   10,
+        #                                                   database='learning',
+        #                                                   user='postgres',
+        #                                                   password='root1224',
+        #                                                   host='localhost')
+
+        cls.__connection_pool = pool.SimpleConnectionPool(1,
+                                                          10,
+                                                          **kwargs)
 
     @classmethod
     def get_connection(cls):
-        return cls.connection_pool.getconn()
+        return cls.__connection_pool.getconn()
 
     @classmethod
     def return_connection(cls, connection):
-        cls.connection_pool.putconn(connection)
+        cls.__connection_pool.putconn(connection)
 
     @classmethod
     def close_all_connections(cls):
-        cls.connection_pool.closeall()
+        cls.__connection_pool.closeall()
 
 
 class CursorFromConnectionFromPool:
